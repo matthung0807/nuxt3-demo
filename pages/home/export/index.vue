@@ -8,7 +8,7 @@
     <ul v-else>
       <li v-for="order in orders" :key="order.id">
         <NuxtLink :to="`/home/export/${order.id}`">
-          訂單 #{{ order.id }}
+          訂單 #{{ order.id }}, 狀態: {{ order.status }}
         </NuxtLink>
       </li>
     </ul>
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-const { data: orders, pending, error } = useFetch('/api/orders', {
+const { data: orders, pending, error } = useFetch('/api/orders?status=pending', {
   default: () => [],
 })
 </script>
