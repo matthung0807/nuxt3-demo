@@ -1,0 +1,7 @@
+export default defineEventHandler(() => {
+  return [
+    { id: 10001 },
+    { id: 10002 },
+    { id: 10003 },
+  ]
+})
