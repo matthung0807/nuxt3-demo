@@ -20,7 +20,7 @@
 
     <button @click="search">查詢</button>
 
-    <p v-if="pending">資料載入中...</p>
+    <p v-if="orderPending">資料載入中...</p>
     <p v-else-if="error" class="error">資料載入失敗</p>
     <p v-else-if="orders.length === 0">沒有訂單資料</p>
     <ul v-else>
@@ -48,7 +48,7 @@ const queryStatus = ref(route.query.status || '')
 const country = ref(route.query.country || '')
 const queryCountry = ref(route.query.country || '')
 
-const { data: orders, pending, error, refresh } = useFetch('/api/orders', {
+const { data: orders, pending: orderPending, error, refresh } = useFetch('/api/orders', {
   query: {
     status: queryStatus,
     country: queryCountry,
