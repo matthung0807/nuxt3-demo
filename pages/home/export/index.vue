@@ -9,13 +9,11 @@
     <br>
     <label>
       出口國家：
-      <select v-model="country">
+      <select v-model="country" :disabled="countryPending">
         <option value="">全部國家</option>
-        <option value="US">美國(US)</option>
-        <option value="JP">日本(JP)</option>
-        <option value="CN">中國(CN)</option>
-        <option value="KR">韓國(KR)</option>
-        <option value="VN">越南(VN)</option>
+        <option v-for="(name, code) in countryMap" :key="code" :value="code">
+          {{ name }} ({{ code }})
+        </option>
       </select>
     </label>
     <br>
@@ -28,7 +26,9 @@
     <ul v-else>
       <li v-for="order in orders" :key="order.id">
         <NuxtLink :to="`/home/export/${order.id}`">
-          訂單 #{{ order.id }}, 狀態: {{ order.status }}, 出口國家：{{ order.country }}
+          訂單 #{{ order.id }},
+          狀態: {{ order.status }},
+          出口國家：{{ countryMap[order.country] }}
         </NuxtLink>
       </li>
     </ul>
@@ -54,6 +54,10 @@ const { data: orders, pending, error, refresh } = useFetch('/api/orders', {
     country: queryCountry,
   },
   default: () => [],
+})
+
+const { data: countryMap, pending: countryPending } = useFetch('/api/countries', {
+  default: () => ({}), // default的型別要和API回傳的資料結構一致
 })
 
 function search() {
