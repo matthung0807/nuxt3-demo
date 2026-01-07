@@ -2,6 +2,13 @@
   <div>
     <h1>出口業務</h1>
 
+    <label>
+      訂單狀態：
+      <input v-model="status" placeholder="pending/done">
+    </label>
+
+    <button @click="search">查詢</button>
+
     <p v-if="pending">資料載入中...</p>
     <p v-else-if="error" class="error">資料載入失敗</p>
     <p v-else-if="orders.length === 0">沒有訂單資料</p>
@@ -17,9 +24,23 @@
 </template>
 
 <script setup>
-const { data: orders, pending, error } = useFetch('/api/orders?status=pending', {
+import { ref, watch } from 'vue'
+
+const status = ref('')
+const queryStatus = ref('') 
+
+const { data: orders, pending, error, refresh } = useFetch('/api/orders', {
+  query: {
+    status: queryStatus,
+  },
   default: () => [],
 })
+
+function search() {
+  queryStatus.value = status.value
+  refresh()
+}
+
 </script>
 
 <style scoped>
