@@ -25,9 +25,13 @@
 
 <script setup>
 import { ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const status = ref('')
-const queryStatus = ref('') 
+const route = useRoute()
+const router = useRouter()
+
+const status = ref(route.query.status || '')
+const queryStatus = ref(route.query.status || '')
 
 const { data: orders, pending, error, refresh } = useFetch('/api/orders', {
   query: {
@@ -38,9 +42,15 @@ const { data: orders, pending, error, refresh } = useFetch('/api/orders', {
 
 function search() {
   queryStatus.value = status.value
+
+  router.push({
+    query: {
+      status: status.value || undefined,
+    },
+  })
+
   refresh()
 }
-
 </script>
 
 <style scoped>
