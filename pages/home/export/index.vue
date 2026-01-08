@@ -9,12 +9,7 @@
     <br>
     <label>
       出口國家：
-      <select v-model="country" :disabled="countryPending">
-        <option value="">全部國家</option>
-        <option v-for="(name, code) in countryMap" :key="code" :value="code">
-          {{ name }} ({{ code }})
-        </option>
-      </select>
+      <CountrySelect v-model="country" />
     </label>
     <br>
 
@@ -44,9 +39,9 @@ const route = useRoute()
 const router = useRouter()
 
 const status = ref(route.query.status || '')
-const queryStatus = ref(route.query.status || '')
 const country = ref(route.query.country || '')
-const queryCountry = ref(route.query.country || '')
+const queryStatus = ref(route.query.status)
+const queryCountry = ref(route.query.country)
 
 const { data: orders, pending: orderPending, error, refresh } = useFetch('/api/orders', {
   query: {
@@ -56,19 +51,23 @@ const { data: orders, pending: orderPending, error, refresh } = useFetch('/api/o
   default: () => [],
 })
 
-const { countryMap, pending: countryPending, loadCountries } = useCountries()
-
+const { countryMap, loadCountries } = useCountries()
 loadCountries()
 
 function search() {
+
   queryStatus.value = status.value
   queryCountry.value = country.value
 
+  const query = {}
+  if (status.value) {
+    query.status = status.value
+  }
+  if (country.value) {
+    query.country = country.value
+  }
   router.push({
-    query: {
-      status: status.value || undefined,
-      country: country.value || undefined,
-    },
+    query
   })
 
   refresh()
