@@ -56,9 +56,9 @@ const { data: orders, pending: orderPending, error, refresh } = useFetch('/api/o
   default: () => [],
 })
 
-const { data: countryMap, pending: countryPending } = useFetch('/api/countries', {
-  default: () => ({}), // default的型別要和API回傳的資料結構一致
-})
+const { countryMap, pending: countryPending, loadCountries } = useCountries()
+
+loadCountries()
 
 function search() {
   queryStatus.value = status.value
