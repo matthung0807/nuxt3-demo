@@ -1,5 +1,5 @@
 # Nuxt3 Demo
-[Vue Nuxt 3 抽取下拉選單為元件(Components)](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-select-component.html)
+[Vue Nuxt 3 使用路由中間件(Middleware)](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-route-middleware.html)
 
 # 安裝
 專案clone後在專案根目錄以命令列輸入`pnpm install`安裝。
