@@ -1,5 +1,5 @@
 # Nuxt3 Demo
-[Vue Nuxt 3 使用路由中間件(Middleware)](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-route-middleware.html)
+[Vue Nuxt 3 登入驗證](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-middleware-login-auth.html)
 
 # 安裝
 專案clone後在專案根目錄以命令列輸入`pnpm install`安裝。
