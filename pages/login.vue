@@ -21,8 +21,10 @@ definePageMeta({
 })
 
 import { ref } from 'vue'
+import { useAuthState } from '~/composables/useAuthState'
 import type { LoginResponse } from '~/types/auth'
 
+const isLogin = useAuthState()
 const username = ref('')
 const password = ref('')
 
@@ -33,6 +35,7 @@ const login = async () => {
       body: { username: username.value, password: password.value }
     })
     if (success && token) {
+      isLogin.value = true
       navigateTo('/home')
     }
   } catch (err) {
