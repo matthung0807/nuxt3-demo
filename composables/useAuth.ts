@@ -1,2 +1,2 @@
-export const useAuthState = () =>
+export const useAuth = () =>
   useState<boolean>('isLogin', () => false)

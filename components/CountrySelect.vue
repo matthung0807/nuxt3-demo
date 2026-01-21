@@ -8,12 +8,9 @@
 </template>
 
 <script setup lang="ts">
-import { useCountries } from '~/composables/useCountries'
-
 const modelValue = defineModel();
 
 const { countryMap, pending, loadCountries } = useCountries()
 
 loadCountries()
-
 </script>

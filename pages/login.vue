@@ -20,11 +20,9 @@ definePageMeta({
   layout: 'auth'
 })
 
-import { ref } from 'vue'
-import { useAuthState } from '~/composables/useAuthState'
 import type { LoginResponse } from '~/types/auth'
 
-const isLogin = useAuthState()
+const isLogin = useAuth()
 const username = ref('')
 const password = ref('')
 

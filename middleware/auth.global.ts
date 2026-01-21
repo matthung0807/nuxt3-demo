@@ -1,9 +1,7 @@
-import { useAuthState } from "~/composables/useAuthState";
-
 export default defineNuxtRouteMiddleware((to) => {
   if (to.path === "/login") return; // 登入頁面不用驗證
 
-  const isLogin = useAuthState()
+  const isLogin = useAuth()
 
   // 檢查SSR路由登入驗證
   if (import.meta.server) {
