@@ -1,5 +1,5 @@
 # Nuxt3 Demo
-[Vue Nuxt 3 登入狀態管理](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-middleware-auth-state.html)
+[Vue Nuxt 3 側邊選單權限控管](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-sidebar-rbac.html)
 
 # 安裝
 專案clone後在專案根目錄以命令列輸入`pnpm install`安裝。
