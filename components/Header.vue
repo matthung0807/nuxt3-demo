@@ -13,12 +13,20 @@
     <!-- 右上角使用者資訊 -->
     <div class="nav-right" v-if="user">
       {{ user.name }} ({{ user.role }})
+      <button @click="logout">登出</button>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
 const user = useUser()
+const isLogin = useAuth()
+const logout = async () => {
+  await $fetch('/api/auth/logout', { method: 'POST' })
+  isLogin.value = false
+  user.value = null
+  navigateTo('/login')
+}
 </script>
 
 <style scoped>

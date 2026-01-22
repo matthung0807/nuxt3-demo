@@ -1,5 +1,5 @@
 # Nuxt3 Demo
-[Vue Nuxt 3 側邊選單權限控管](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-sidebar-rbac.html)
+[Vue Nuxt 3 登出](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-logout.html)
 
 # 安裝
 專案clone後在專案根目錄以命令列輸入`pnpm install`安裝。
