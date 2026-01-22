@@ -1,6 +1,8 @@
-<script setup>
+<script setup lang="ts">
 definePageMeta({
-  middleware: 'check-order-id'
+  middleware: 'check-order-id',
+  requireAuth: true,
+  roles: ['admin', 'user']
 })
 
 const router = useRouter()

@@ -15,16 +15,24 @@
       {{ user.name }} ({{ user.role }})
       <button @click="logout">登出</button>
     </div>
+    <div v-else>guest
+      <button @click="login">登入</button>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
 const user = useUser()
 const isLogin = useAuth()
+
 const logout = async () => {
   await $fetch('/api/auth/logout', { method: 'POST' })
   isLogin.value = false
   user.value = null
+  navigateTo('/login')
+}
+
+const login = () => {
   navigateTo('/login')
 }
 </script>

@@ -32,6 +32,11 @@
 </template>
 
 <script setup>
+definePageMeta({
+  requireAuth: true,
+  roles: ['admin', 'user']
+})
+
 const route = useRoute()
 const router = useRouter()
 
