@@ -1,5 +1,5 @@
 # Nuxt3 Demo
-[Vue Nuxt 3 使用Page Meta管理頁面角色存取](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-page-meta-role-auth.html)
+[Vue Nuxt 3 分頁](https://matthung0807.blogspot.com/2026/01/vue-nuxt-3-paging.html)
 
 # 安裝
 專案clone後在專案根目錄以命令列輸入`pnpm install`安裝。

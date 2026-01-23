@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const { status, country } = getQuery(event); // 取得查詢參數
+  const { status, country, page = "1", pageSize = "5" } = getQuery(event); // 取得查詢參數
 
   await new Promise((r) => setTimeout(r, 2000)); // 模擬延遲
 
@@ -11,6 +11,9 @@ export default defineEventHandler(async (event) => {
     { id: 10005, status: "pending", country: "VN" },
     { id: 10006, status: "done", country: "US" },
     { id: 10007, status: "pending", country: "JP" },
+    { id: 10008, status: "done", country: "CN" },
+    { id: 10009, status: "pending", country: "KR" },
+    { id: 10010, status: "done", country: "VN" },
   ];
 
   let result = orders;
@@ -23,5 +26,22 @@ export default defineEventHandler(async (event) => {
   if (country) {
     result = result.filter((o) => o.country === country);
   }
-  return result;
+
+  // 分頁
+  const pageNum = parseInt(page as string, 10);
+  const size = parseInt(pageSize as string, 10);
+
+  const start = (pageNum - 1) * size;
+  const pagedData = result.slice(start, start + size);
+
+  // 計算總頁數
+  const totalPages = Math.ceil((result.length || 0) / size)
+
+   return {
+    total: result.length,
+    totalPages: totalPages,
+    page: pageNum,
+    pageSize: size,
+    data: pagedData,
+  };
 });

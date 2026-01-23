@@ -13,7 +13,7 @@ export function useCountries() {
     error.value = null;
 
     try {
-      countryMap.value = await $fetch("/api/countries");
+      countryMap.value = await $fetch<Record<string, string>>("/api/countries");
     } catch (err) {
       error.value = err as Error;
     } finally {
