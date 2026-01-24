@@ -15,7 +15,7 @@
 
     <button @click="search">查詢</button>
 
-    <p v-if="orderPending">資料載入中...</p>
+    <SkeletonList v-if="orderPending" :count="pageSize" />
     <p v-else-if="error" class="error">資料載入失敗</p>
     <p v-else-if="result.data.length === 0">沒有訂單資料</p>
     <ul v-else>
