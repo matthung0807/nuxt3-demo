@@ -14,6 +14,7 @@
     <br>
 
     <button @click="search">查詢</button>
+    <button @click="navigateTo('/home/export/create')">新增訂單</button>
 
     <SkeletonList v-if="orderPending" :count="pageSize" />
     <p v-else-if="error" class="error">資料載入失敗</p>
