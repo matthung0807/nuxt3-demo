@@ -18,6 +18,11 @@
   </form>
 </template>
 <script setup lang="ts">
+definePageMeta({
+  requireAuth: true,
+  roles: ['admin', 'user']
+})
+
 import type { CreateOrderResponse } from "~/types/api/orders";
 
 const status = ref("");
