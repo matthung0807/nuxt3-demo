@@ -24,7 +24,9 @@ definePageMeta({
 })
 
 import type { CreateOrderResponse } from "~/types/api/orders";
+import { useToast } from '~/composables/useToast'
 
+const toast = useToast()
 const status = ref("");
 const country = ref("");
 
@@ -43,7 +45,7 @@ async function save() {
   });
 
   if (response.success) {
-    alert('新增訂單成功！');
+    toast.showToast('新增訂單成功！', 'success')
     navigateTo("/home/export");
   }
 }
