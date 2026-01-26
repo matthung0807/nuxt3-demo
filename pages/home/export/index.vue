@@ -26,6 +26,8 @@
           狀態: {{ order.status }},
           出口國家：{{ countryMap?.[order.country] ?? order.country }}
         </NuxtLink>
+        &nbsp;
+        <button @click="deleteOrder(order.id)" :disabled="order.status === 'done'">刪除</button>
       </li>
     </ul>
 
@@ -43,10 +45,11 @@ definePageMeta({
   roles: ['admin', 'user']
 })
 
-import type { OrdersResponse } from "~/types/api/orders"
+import type { DeleteOrderResponse, OrdersResponse } from "~/types/api/orders"
 
 const route = useRoute()
 const router = useRouter()
+const toast = useToast()
 
 const status = ref('')
 const country = ref('')
@@ -122,6 +125,22 @@ function pushQueryAndRefresh() {
   if (pageSize) query.pageSize = String(pageSize)
   router.push({ query })
   refresh()
+}
+
+async function deleteOrder(id: number) {
+  if (!confirm(`確定刪除訂單編號 #${id} ？`)) {
+    return;
+  }
+  const response = await $fetch<DeleteOrderResponse>(`/api/orders/${id}`, {
+    method: "DELETE",
+  });
+
+  if (response.success) {
+    toast.showToast(`刪除訂單編號 #${id} 成功！`, 'success')
+    await refresh();
+  } else {
+    toast.showToast(`刪除訂單失敗：${response.message}`, 'error')
+  }
 }
 </script>
 

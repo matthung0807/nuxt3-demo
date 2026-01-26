@@ -11,3 +11,8 @@ export interface CreateOrderResponse {
   success: boolean;
   order: Order;
 }
+
+export interface DeleteOrderResponse {
+  success: boolean;
+  message: string;
+}

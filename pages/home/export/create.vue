@@ -45,7 +45,7 @@ async function save() {
   });
 
   if (response.success) {
-    toast.showToast('新增訂單成功！', 'success')
+    toast.showToast(`新增訂單編號 #${response.order.id} 成功！`, 'success')
     navigateTo("/home/export");
   }
 }
