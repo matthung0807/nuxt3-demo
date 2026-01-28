@@ -20,28 +20,16 @@ definePageMeta({
   layout: 'auth'
 })
 
-import type { LoginResponse } from '~/types/auth'
+import { useUserStore } from '~/stores/user'
 
-const isLogin = useAuth()
-const userState = useUser()
+const userStore = useUserStore()
 const username = ref('')
 const password = ref('')
 
 const login = async () => {
-  try {
-    const { success, token, user } = await $fetch<LoginResponse>('/api/auth/login', {
-      method: 'POST',
-      body: { username: username.value, password: password.value }
-    })
-    if (success && token && user) {
-      isLogin.value = true
-      userState.value = user
-      navigateTo('/home')
-    } else {
-      alert('帳號或密碼錯誤')
-    }
-  } catch (err) {
-    alert('登入失敗，請稍後再試')
+  const success = await userStore.login(username.value, password.value)
+  if (success) {
+    navigateTo('/home')
   }
 }
 </script>

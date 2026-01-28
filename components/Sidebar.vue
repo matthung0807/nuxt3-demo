@@ -14,6 +14,8 @@
 
 <script setup lang="ts">
 import type { SidebarItem } from '~/types/sidebar'
+import { useUserStore } from '~/stores/user'
+import { storeToRefs } from 'pinia'
 
 // Sidebar 功能清單
 const sidebarItems: SidebarItem[] = [
@@ -21,13 +23,14 @@ const sidebarItems: SidebarItem[] = [
   { label: '出口業務', path: '/home/export', roles: ['admin', 'user'] },
 ]
 
-const userState = useUser()
+const userStore = useUserStore()
+const { role } = storeToRefs(userStore)
 
 // 依角色過濾可見項目
 const visibleItems = computed(() => {
-  if (!userState.value) return []
-  return sidebarItems.filter(item =>
-    userState.value &&
-    item.roles.includes(userState.value.role))
+  const r = role.value
+  if (!r) return []
+
+  return sidebarItems.filter(item => item.roles.includes(r))
 })
 </script>

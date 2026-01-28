@@ -24,7 +24,7 @@
         <NuxtLink :to="`/home/export/${order.id}`">
           訂單 #{{ order.id }},
           狀態: {{ order.status }},
-          出口國家：{{ countryMap?.[order.country] ?? order.country }}
+          出口國家：{{ countriesStore.countryMap?.[order.country] ?? order.country }}
         </NuxtLink>
         &nbsp;
         <button @click="deleteOrder(order.id)" :disabled="order.status === 'done'">刪除</button>
@@ -46,10 +46,13 @@ definePageMeta({
 })
 
 import type { DeleteOrderResponse, OrdersResponse } from "~/types/api/orders"
+import { useToastStore } from '~/stores/toast'
+import { useCountriesStore } from '~/stores/countries';
 
 const route = useRoute()
 const router = useRouter()
-const toast = useToast()
+const toastStore = useToastStore()
+const countriesStore = useCountriesStore()
 
 const status = ref('')
 const country = ref('')
@@ -62,7 +65,7 @@ const queryPage = ref(route.query.page)
 const queryPageSize = ref(route.query.pageSize)
 const totalPages = ref(0)
 
-const { data: result, pending: orderPending, error, refresh } = useFetch<OrdersResponse>('/api/orders', {
+const { data: result, pending: orderPending, error, refresh } = await useFetch<OrdersResponse>('/api/orders', {
   query: {
     status: queryStatus,
     country: queryCountry,
@@ -85,8 +88,7 @@ watch(() => route.query, (query) => {
   currentPage.value = Number(query.page || 1)
 }, { immediate: true })
 
-const { countryMap, loadCountries } = useCountries()
-loadCountries()
+await countriesStore.loadCountries()
 
 function search() {
 
@@ -136,10 +138,10 @@ async function deleteOrder(id: number) {
   });
 
   if (response.success) {
-    toast.showToast(`刪除訂單編號 #${id} 成功！`, 'success')
+    toastStore.showToast(`刪除訂單編號 #${id} 成功！`, 'success')
     await refresh();
   } else {
-    toast.showToast(`刪除訂單失敗：${response.message}`, 'error')
+    toastStore.showToast(`刪除訂單失敗：${response.message}`, 'error')
   }
 }
 </script>

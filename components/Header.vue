@@ -22,13 +22,14 @@
 </template>
 
 <script setup lang="ts">
-const user = useUser()
-const isLogin = useAuth()
+import { useUserStore } from '~/stores/user'
+import { storeToRefs } from 'pinia'
+
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 
 const logout = async () => {
-  await $fetch('/api/auth/logout', { method: 'POST' })
-  isLogin.value = false
-  user.value = null
+  await userStore.logout()
   navigateTo('/login')
 }
 

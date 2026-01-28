@@ -1,7 +1,7 @@
 <template>
   <div class="toast-container">
     <Toast
-      v-for="toast in toasts"
+      v-for="toast in toastStore.toasts"
       :key="toast.id"
       :message="toast.message"
       :type="toast.type"
@@ -11,9 +11,9 @@
 
 <script setup lang="ts">
 import Toast from './Toast.vue'
-import { useToast } from '~/composables/useToast'
+import { useToastStore } from '~/stores/toast'
 
-const { toasts } = useToast()
+const toastStore = useToastStore()
 </script>
 
 <style scoped>
