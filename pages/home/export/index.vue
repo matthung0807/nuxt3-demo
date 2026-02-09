@@ -58,7 +58,7 @@ const queryPage = ref(route.query.page)
 const queryPageSize = ref(route.query.pageSize)
 const totalPages = ref(0)
 
-const { data: result, pending: orderPending, error, refresh } = useFetch<OrdersResponse>('/api/orders', {
+const { data: result, pending: orderPending, error, refresh } = await useFetch<OrdersResponse>('/api/orders', {
   query: {
     status: queryStatus,
     country: queryCountry,
